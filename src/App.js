@@ -1,36 +1,34 @@
 import "./App.css";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const App = () => {
-  let [users, setUsers] = useState([]);
+// const App = () => {
+//   let [users, setUsers] = useState([]);
 
-  const fetchDate = async () => {
-    let { data } = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
-    );
-    let usernames = data.map((person) => {
-      return { username: person.username, id: person.id };
-    });
-    setUsers(usernames);
-  };
+//   const fetchDate = async () => {
+//     let { data } = await axios.get(
+//       "https://jsonplaceholder.typicode.com/users"
+//     );
+//     let usernames = data.map((person) => {
+//       return { username: person.username, id: person.id };
+//     });
+//     setUsers(usernames);
+//   };
 
-  return (
-    <div>
-      {JSON.stringify(users)}
-      {users.map((user) => (
-        <div key={user.id}>
-          My username is {user.username} with a name of {user.name}, and id of{" "}
-          {""}
-          {user.id}
-        </div>
-      ))}
-      <button onClick={fetchDate}>fetch data</button>
-    </div>
-  );
-};
-
-export default App;
+//   return (
+//     <div>
+//       {JSON.stringify(users)}
+//       {users.map((user) => (
+//         <div key={user.id}>
+//           My username is {user.username} with a name of {user.name}, and id of{" "}
+//           {""}
+//           {user.id}
+//         </div>
+//       ))}
+//       <button onClick={fetchDate}>fetch data</button>
+//     </div>
+//   );
+// };
 
 // axios installed (npm install axios; npm uninstall axios). When packages are installed it goes to the node_modles folder but the name will be in package.json
 // json endpoint was obtained from https://jsonplaceholder.typicode.com/
@@ -47,3 +45,21 @@ export default App;
 // ASSIGNMENT- Fetch for the id and the username only to give an array of objects [{id: "1", username: "Bret"}, {id: "2", username: "Antonette"}] using
 
 // any of the HOFs
+
+// useEffect ARE USED TO HANDLE SIDE EFFECT - side effect
+// primary purpose of React is to respond to events and display user interface. useEffect enables us to get the data without clicking on a button.
+
+const App = () => {
+  let [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const myData = async () => {
+      let users = await axios.get("https://jsonplaceholder.typicode.com/users");
+      console.log(users);
+    };
+    myData();
+  }, []);
+  return <div></div>;
+};
+
+export default App;

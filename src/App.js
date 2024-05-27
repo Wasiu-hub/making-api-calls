@@ -55,11 +55,17 @@ const App = () => {
   useEffect(() => {
     const myData = async () => {
       let users = await axios.get("https://jsonplaceholder.typicode.com/users");
-      console.log(users);
+      setUsers(users.data);
     };
     myData();
   }, []);
-  return <div></div>;
+  return (
+    <div>
+      {users.map((user) => (
+        <div key={user.id}>{user.username}</div>
+      ))}
+    </div>
+  );
 };
 
 export default App;

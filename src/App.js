@@ -12,6 +12,7 @@ const App = () => {
 
   return (
     <div>
+      {JSON.stringify(users)}
       {users.map((user) => (
         <div key={user.id}>
           My username is {user.username} with a name of {user.name}, and id of{" "}

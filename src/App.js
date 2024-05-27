@@ -6,8 +6,13 @@ const App = () => {
   let [users, setUsers] = useState([]);
 
   const fetchDate = async () => {
-    let myData = await axios.get("https://jsonplaceholder.typicode.com/users");
-    setUsers(myData.data);
+    let { data } = await axios.get(
+      "https://jsonplaceholder.typicode.com/users"
+    );
+    let usernames = data.map((person) => {
+      return { username: person.username, id: person.id };
+    });
+    setUsers(usernames);
   };
 
   return (
@@ -16,6 +21,7 @@ const App = () => {
       {users.map((user) => (
         <div key={user.id}>
           My username is {user.username} with a name of {user.name}, and id of{" "}
+          {""}
           {user.id}
         </div>
       ))}
@@ -38,6 +44,6 @@ export default App;
 // - the whilelisted property is the only one that can access it. The whitelisting configuration is done at the backend.
 // browser does enforce CORS.
 
-// ASSIGNMENT- Fetch for the id and the username only to give an array of objects [{id: "1", username: "Bret"}, {id: "2", username: "Antonette"}]
+// ASSIGNMENT- Fetch for the id and the username only to give an array of objects [{id: "1", username: "Bret"}, {id: "2", username: "Antonette"}] using
 
-//
+// any of the HOFs

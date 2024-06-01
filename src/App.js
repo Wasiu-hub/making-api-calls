@@ -52,15 +52,29 @@ import React, { useEffect, useState } from "react";
 const App = () => {
   let [users, setUsers] = useState([]);
 
+  let [userId, setUserId] = useState("");
+
   useEffect(() => {
     const myData = async () => {
       let users = await axios.get("https://jsonplaceholder.typicode.com/users");
+      // console.log(users);
       setUsers(users.data);
     };
     myData();
   }, []);
+
+  const fetchSingleUser = async () => {
+    let { data } = await axios.get(
+      "https://jsonplaceholder.typicode.com/users"
+    );
+    console.log(data);
+  };
+
   return (
     <div>
+      <input onInput={(e) => setUserId(e.target.id)} />
+      <button onClick={fetchSingleUser}>get users</button>
+
       {users.map((user) => (
         <div key={user.id}>{user.username}</div>
       ))}
@@ -70,4 +84,4 @@ const App = () => {
 
 export default App;
 
-// running code immediately a component loads
+// running code (component) immediately the browser loads (the component loads)- using useEffect.

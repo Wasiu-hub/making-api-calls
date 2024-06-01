@@ -69,3 +69,5 @@ const App = () => {
 };
 
 export default App;
+
+// running code immediately a component loads

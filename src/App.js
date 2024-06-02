@@ -49,50 +49,78 @@ import React, { useEffect, useState } from "react";
 // useEffect ARE USED TO HANDLE SIDE EFFECT - side effect
 // primary purpose of React is to respond to events and display user interface. useEffect enables us to get the data without clicking on a button.
 
+// const App = () => {
+//   let [users, setUsers] = useState([]);
+
+//   let [userId, setUserId] = useState("1");
+
+//   useEffect(() => {
+//     const myData = async () => {
+//       let users = await axios.get("https://jsonplaceholder.typicode.com/users");
+//       // console.log(users);
+//       setUsers(users.data);
+//     };
+//     myData();
+//   }, []);
+
+// const fetchSingleUser = async () => {
+//   let { data } = await axios.get(
+//     `https://jsonplaceholder.typicode.com/users/${userId}` // using literal operator (temperate literal) here
+//   );
+//   console.log(data);
+// };
+
+//   useEffect(() => {
+//     const fetchSingleUser = async () => {
+//       let { data } = await axios.get(
+//         `https://jsonplaceholder.typicode.com/users/${userId}`
+//       );
+//       console.log(data);
+//     };
+
+//     fetchSingleUser();
+//   }, [userId]); // the code runs again if the userId value changes
+
+//   return (
+//     <div>
+//       <input onInput={(e) => setUserId(e.target.value)} />
+//       {/* <button onClick={fetchSingleUser}>get users</button> */}
+
+//       {users.map((user) => (
+//         <div key={user.id}>{user.username}</div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// running code (component) immediately the browser loads (the component loads)- using useEffect.
+
+// ASSIGNMENT: Get the post resources from the json placeholder website for a particular id entered into the input search, and make the title
+
+// of the fetched information bold and the body underneat it.
+
+// there are two problems here after this lecture: duplicate infos are printed when the browser loads (can be corrected by commenting out React.StrictMode in index.js file), and the browser loading all the data when no input is added. The second problem is solved in the next class by using useEffect as a cleanup function.
+
+// USE EFFECT AS A CLEAN UP FUNCTION ==============
+
 const App = () => {
-  let [users, setUsers] = useState([]);
-
-  let [userId, setUserId] = useState("1");
+  let [inp, setInp] = useState("");
 
   useEffect(() => {
-    const myData = async () => {
-      let users = await axios.get("https://jsonplaceholder.typicode.com/users");
-      // console.log(users);
-      setUsers(users.data);
-    };
-    myData();
-  }, []);
-
-  // const fetchSingleUser = async () => {
-  //   let { data } = await axios.get(
-  //     `https://jsonplaceholder.typicode.com/users/${userId}` // using literal operator (temperate literal) here
-  //   );
-  //   console.log(data);
-  // };
-
-  useEffect(() => {
-    const fetchSingleUser = async () => {
-      let { data } = await axios.get(
-        `https://jsonplaceholder.typicode.com/users/${userId}`
+    const myFunc = async () => {
+      let response = await axios.get(
+        `https://jsonplaceholder.typicode.com/users/${inp}`
       );
-      console.log(data);
+      console.log(response.data);
     };
-
-    fetchSingleUser();
-  }, [userId]); // the code runs again if the userId value changes
+    myFunc();
+  }, [inp]);
 
   return (
     <div>
-      <input onInput={(e) => setUserId(e.target.value)} />
-      {/* <button onClick={fetchSingleUser}>get users</button> */}
-
-      {users.map((user) => (
-        <div key={user.id}>{user.username}</div>
-      ))}
+      <input onInput={(e) => setInp(e.target.value)} />
     </div>
   );
 };
 
 export default App;
-
-// running code (component) immediately the browser loads (the component loads)- using useEffect.

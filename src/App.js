@@ -115,7 +115,12 @@ const App = () => {
       console.log(response.data);
       setTitle(response.data.title);
     };
-    myFunc();
+
+    setTimeout(() => {
+      // this code is runned first in this block
+      myFunc();
+    }, 3000); // it calls myFunc(), 3 seconds after the value inp has changed
+    // myFunc();
   }, [inp]);
 
   return (
@@ -127,3 +132,5 @@ const App = () => {
 };
 
 export default App;
+
+// clean up function help user to finish typing before fetching data.

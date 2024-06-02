@@ -104,20 +104,23 @@ import React, { useEffect, useState } from "react";
 // USE EFFECT AS A CLEAN UP FUNCTION ==============
 
 const App = () => {
-  let [inp, setInp] = useState("");
+  let [inp, setInp] = useState("1");
+  let [title, setTitle] = useState("");
 
   useEffect(() => {
     const myFunc = async () => {
       let response = await axios.get(
-        `https://jsonplaceholder.typicode.com/users/${inp}`
+        `https://jsonplaceholder.typicode.com/posts/${inp}`
       );
       console.log(response.data);
+      setTitle(response.data.title);
     };
     myFunc();
   }, [inp]);
 
   return (
     <div>
+      The title is <b>{title}</b>{" "}
       <input onInput={(e) => setInp(e.target.value)} />
     </div>
   );

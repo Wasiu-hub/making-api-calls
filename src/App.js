@@ -52,7 +52,7 @@ import React, { useEffect, useState } from "react";
 const App = () => {
   let [users, setUsers] = useState([]);
 
-  let [userId, setUserId] = useState("");
+  let [userId, setUserId] = useState("1");
 
   useEffect(() => {
     const myData = async () => {
@@ -63,17 +63,28 @@ const App = () => {
     myData();
   }, []);
 
-  const fetchSingleUser = async () => {
-    let { data } = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${userId}` // using literal operator (temperate literal) here
-    );
-    console.log(data);
-  };
+  // const fetchSingleUser = async () => {
+  //   let { data } = await axios.get(
+  //     `https://jsonplaceholder.typicode.com/users/${userId}` // using literal operator (temperate literal) here
+  //   );
+  //   console.log(data);
+  // };
+
+  useEffect(() => {
+    const fetchSingleUser = async () => {
+      let { data } = await axios.get(
+        `https://jsonplaceholder.typicode.com/users/${userId}`
+      );
+      console.log(data);
+    };
+
+    fetchSingleUser();
+  }, [userId]); // the code runs again if the userId value changes
 
   return (
     <div>
       <input onInput={(e) => setUserId(e.target.value)} />
-      <button onClick={fetchSingleUser}>get users</button>
+      {/* <button onClick={fetchSingleUser}>get users</button> */}
 
       {users.map((user) => (
         <div key={user.id}>{user.username}</div>

@@ -65,14 +65,14 @@ const App = () => {
 
   const fetchSingleUser = async () => {
     let { data } = await axios.get(
-      "https://jsonplaceholder.typicode.com/users/1"
+      `https://jsonplaceholder.typicode.com/users/${userId}` // using literal operator (temperate literal) here
     );
     console.log(data);
   };
 
   return (
     <div>
-      <input onInput={(e) => setUserId(e.target.id)} />
+      <input onInput={(e) => setUserId(e.target.value)} />
       <button onClick={fetchSingleUser}>get users</button>
 
       {users.map((user) => (

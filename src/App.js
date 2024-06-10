@@ -103,24 +103,44 @@ import React, { useEffect, useState } from "react";
 
 // USE EFFECT AS A CLEAN UP FUNCTION ==============
 
+// const App = () => {
+//   let [inp, setInp] = useState("1");
+//   let [title, setTitle] = useState("");
+
+//   useEffect(() => {
+//     const myFunc = async () => {
+//       let response = await axios.get(
+//         `https://jsonplaceholder.typicode.com/posts/${inp}`
+//       );
+//       console.log(response.data);
+//       setTitle(response.data.title);
+//     };
+
+//     setTimeout(() => {
+//       // this code is runned first in this block
+//       myFunc();
+//     }, 3000); // it calls myFunc(), 3 seconds after the value inp has changed
+//     // myFunc();
+//   }, [inp]);
+
+//   return (
+//     <div>
+//       The title is <b>{title}</b>{" "}
+//       <input onInput={(e) => setInp(e.target.value)} />
+//     </div>
+//   );
+// };
+
+// CLEANUP FUNCTION BELOW
 const App = () => {
   let [inp, setInp] = useState("1");
   let [title, setTitle] = useState("");
 
   useEffect(() => {
-    const myFunc = async () => {
-      let response = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts/${inp}`
-      );
-      console.log(response.data);
-      setTitle(response.data.title);
+    console.log("Haaayyy");
+    return () => {
+      console.log("Hello"); // this is printed out firsrt before Haaayyy
     };
-
-    setTimeout(() => {
-      // this code is runned first in this block
-      myFunc();
-    }, 3000); // it calls myFunc(), 3 seconds after the value inp has changed
-    // myFunc();
   }, [inp]);
 
   return (

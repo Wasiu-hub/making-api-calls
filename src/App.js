@@ -104,7 +104,7 @@ import React, { useEffect, useState } from "react";
 // USE EFFECT AS A CLEAN UP FUNCTION ==============
 
 // const App = () => {
-//   let [inp, setInp] = useState("1");
+//   let [inp, setInp] = useState("");
 //   let [title, setTitle] = useState("");
 
 //   useEffect(() => {
@@ -132,24 +132,62 @@ import React, { useEffect, useState } from "react";
 // };
 
 // CLEANUP FUNCTION BELOW
-const App = () => {
-  let [inp, setInp] = useState("1");
-  let [title, setTitle] = useState("");
+// const App = () => {
+//   let [inp, setInp] = useState("");
+//   let [title, setTitle] = useState("");
 
-  useEffect(() => {
-    console.log("Haaayyy");
-    return () => {
-      console.log("Hello"); // this is printed out firsrt before Haaayyy
-    };
-  }, [inp]);
+//   useEffect(() => {
+//     console.log("Haaayyy");
+//     return () => {
+//       console.log("Hello"); // this is printed out firsrt before Haaayyy
+//     };
+//   }, [inp]);
+
+//   return (
+//     <div>
+//       The title is <b>{title}</b>{" "}
+//       <input onInput={(e) => setInp(e.target.value)} />
+//     </div>
+//   );
+// };
+
+// ANOTHER EXPALNATION ON CLEANUP FUNCTION BELOW
+
+function App() {
+  const [show, setShow] = useState(false);
 
   return (
     <div>
-      The title is <b>{title}</b>{" "}
-      <input onInput={(e) => setInp(e.target.value)} />
+      <h1>Coding</h1>
+      <button onClick={() => setShow(!show)}>Click</button>
+
+      {show && <Child />}
     </div>
   );
-};
+}
+
+function Child() {
+  useEffect(() => {
+    let i = 0;
+    const intervalId = setInterval(() => {
+      console.log("Hello_" + i);
+      i++;
+    }, 1000);
+
+    // timer triggers
+    // creating websocket
+    // subscribing to events in the DOM
+    // other "standy" events
+
+    return function () {
+      // cleanup side effects
+      console.log("Hey I'm leaving the DOM"); // it's called before the component is unmounted (i.e before it leaves the DOM)
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  return <h2>Child</h2>;
+}
 
 export default App;
 

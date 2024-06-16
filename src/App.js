@@ -142,7 +142,7 @@ const App = () => {
 
   const decrement = () => {
     setInterval(() => {
-      setInputVal(inputVal - 1);
+      setInputVal(inputVal - 1); // try understand what this display does every second before using useEffect as a better approach.
     }, 1000);
   };
 
@@ -150,6 +150,7 @@ const App = () => {
     <div>
       <input onInput={(e) => setInputVal(e.target.value)} />
       <button onClick={decrement}>Click me</button>
+      {inputVal}
     </div>
   );
 };

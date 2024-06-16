@@ -103,38 +103,55 @@ import React, { useEffect, useState } from "react";
 
 // USE EFFECT AS A CLEAN UP FUNCTION ==============
 
+// const App = () => {
+//   let [inp, setInp] = useState("");
+//   let [title, setTitle] = useState("");
+
+//   useEffect(() => {
+//     const myFunc = async () => {
+//       let response = await axios.get(
+//         `https://jsonplaceholder.typicode.com/posts/${inp}`
+//       );
+//       console.log(response.data);
+//       setTitle(response.data.title);
+//     };
+
+//     let myTimeout = setTimeout(() => {
+//       // this code is runned first in this block
+//       myFunc();
+//     }, 3000); // it calls myFunc(), 3 seconds after the value inp has changed
+//     // myFunc();
+
+//     return () => {
+//       clearTimeout(myTimeout); // clears the timeout before the interval of 3 seconds, and note what happens if the clearTimeout is not within a code block.
+//     };
+//   }, [inp]);
+
+//   return (
+//     <div>
+//       The title is <b>{title}</b>{" "}
+//       <input onInput={(e) => setInp(e.target.value)} />
+//     </div>
+//   );
+// };
+// ASSIGNMENT: MAKE A COUNTDOWN TIMER WITH REACT JS.
+// SOLUTION TO ASSIGNMENT BELOW
+
 const App = () => {
-  let [inp, setInp] = useState("");
-  let [title, setTitle] = useState("");
+  let [inputVal, setInputVal] = useState("");
 
-  useEffect(() => {
-    const myFunc = async () => {
-      let response = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts/${inp}`
-      );
-      console.log(response.data);
-      setTitle(response.data.title);
-    };
-
-    let myTimeout = setTimeout(() => {
-      // this code is runned first in this block
-      myFunc();
-    }, 3000); // it calls myFunc(), 3 seconds after the value inp has changed
-    // myFunc();
-
-    return () => {
-      clearTimeout(myTimeout); // clears the timeout before the interval of 3 seconds, and note what happens if the clearTimeout is not within a code block.
-    };
-  }, [inp]);
+  const decrement = () => {
+    setInterval(() => {
+      setInputVal(inputVal - 1);
+    }, 1000);
+  };
 
   return (
     <div>
-      The title is <b>{title}</b>{" "}
-      <input onInput={(e) => setInp(e.target.value)} />
+      <input onInput={(e) => setInputVal(e.target.value)} />
+      <button onClick={decrement}>Click me</button>
     </div>
   );
-
-  // ASSIGNMENT: MAKE A COUNTDOWN TIMER WITH REACT JS.
 };
 
 // CLEANUP FUNCTION BELOW

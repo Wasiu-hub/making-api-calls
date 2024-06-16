@@ -63,12 +63,12 @@ import React, { useEffect, useState } from "react";
 //     myData();
 //   }, []);
 
-// const fetchSingleUser = async () => {
-//   let { data } = await axios.get(
-//     `https://jsonplaceholder.typicode.com/users/${userId}` // using literal operator (temperate literal) here
-//   );
-//   console.log(data);
-// };
+//   const fetchSingleUser = async () => {
+//     let { data } = await axios.get(
+//       `https://jsonplaceholder.typicode.com/users/${userId}` // using literal operator (temperate literal) here
+//     );
+//     console.log(data);
+//   };
 
 //   useEffect(() => {
 //     const fetchSingleUser = async () => {
@@ -103,33 +103,39 @@ import React, { useEffect, useState } from "react";
 
 // USE EFFECT AS A CLEAN UP FUNCTION ==============
 
-// const App = () => {
-//   let [inp, setInp] = useState("");
-//   let [title, setTitle] = useState("");
+const App = () => {
+  let [inp, setInp] = useState("");
+  let [title, setTitle] = useState("");
 
-//   useEffect(() => {
-//     const myFunc = async () => {
-//       let response = await axios.get(
-//         `https://jsonplaceholder.typicode.com/posts/${inp}`
-//       );
-//       console.log(response.data);
-//       setTitle(response.data.title);
-//     };
+  useEffect(() => {
+    const myFunc = async () => {
+      let response = await axios.get(
+        `https://jsonplaceholder.typicode.com/posts/${inp}`
+      );
+      console.log(response.data);
+      setTitle(response.data.title);
+    };
 
-//     setTimeout(() => {
-//       // this code is runned first in this block
-//       myFunc();
-//     }, 3000); // it calls myFunc(), 3 seconds after the value inp has changed
-//     // myFunc();
-//   }, [inp]);
+    let myTimeout = setTimeout(() => {
+      // this code is runned first in this block
+      myFunc();
+    }, 3000); // it calls myFunc(), 3 seconds after the value inp has changed
+    // myFunc();
 
-//   return (
-//     <div>
-//       The title is <b>{title}</b>{" "}
-//       <input onInput={(e) => setInp(e.target.value)} />
-//     </div>
-//   );
-// };
+    return () => {
+      clearTimeout(myTimeout); // clears the timeout before the interval of 3 seconds, and note what happens if the clearTimeout is not within a code block.
+    };
+  }, [inp]);
+
+  return (
+    <div>
+      The title is <b>{title}</b>{" "}
+      <input onInput={(e) => setInp(e.target.value)} />
+    </div>
+  );
+
+  // ASSIGNMENT: MAKE A COUNTDOWN TIMER WITH REACT JS.
+};
 
 // CLEANUP FUNCTION BELOW
 // const App = () => {
@@ -153,42 +159,42 @@ import React, { useEffect, useState } from "react";
 
 // ANOTHER EXPALNATION ON CLEANUP FUNCTION BELOW
 
-function App() {
-  const [show, setShow] = useState(false);
+// function App() {
+//   const [show, setShow] = useState(false);
 
-  return (
-    <div>
-      <h1>Coding</h1>
-      <button onClick={() => setShow(!show)}>Click</button>
+//   return (
+//     <div>
+//       <h1>Coding</h1>
+//       <button onClick={() => setShow(!show)}>Click</button>
 
-      {show && <Child />}
-    </div>
-  );
-}
+//       {show && <Child />}
+//     </div>
+//   );
+// }
 
-function Child() {
-  useEffect(() => {
-    let i = 0;
-    const intervalId = setInterval(() => {
-      console.log("Hello_" + i);
-      i++;
-    }, 1000);
+// function Child() {
+//   useEffect(() => {
+//     let i = 0;
+//     const intervalId = setInterval(() => {
+//       console.log("Hello_" + i);
+//       i++;
+//     }, 1000);
 
-    // timer triggers
-    // creating websocket
-    // subscribing to events in the DOM
-    // other "standy" events
+// timer triggers
+// creating websocket
+// subscribing to events in the DOM
+// other "standy" events
 
-    return function () {
-      // cleanup side effects
-      console.log("Hey I'm leaving the DOM"); // it's called before the component is unmounted (i.e before it leaves the DOM)
-      clearInterval(intervalId);
-    };
-  }, []);
+// return function () {
+// cleanup side effects
+// console.log("Hey I'm leaving the DOM"); // it's called before the component is unmounted (i.e before it leaves the DOM)
+//     clearInterval(intervalId);
+//   };
+// }, []);
 
-  return <h2>Child</h2>;
-}
-
-export default App;
+//   return <h2>Child</h2>;
+// }
 
 // clean up function help user to finish typing before fetching data.
+
+export default App;

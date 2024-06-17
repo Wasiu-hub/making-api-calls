@@ -142,9 +142,13 @@ const App = () => {
   let [myVal, setMyVal] = useState(0);
 
   useEffect(() => {
-    setInterval(() => {
+    let myInterval = setInterval(() => {
       setMyVal(myVal - 1);
     }, 1000);
+
+    return () => {
+      clearInterval(myInterval);
+    };
   }, [myVal]);
 
   return (

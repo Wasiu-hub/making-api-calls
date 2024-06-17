@@ -139,18 +139,19 @@ import React, { useEffect, useState } from "react";
 
 const App = () => {
   let [inputVal, setInputVal] = useState("");
+  let [myVal, setMyVal] = useState(0);
 
-  const decrement = () => {
+  useEffect(() => {
     setInterval(() => {
-      setInputVal(inputVal - 1); // try understand what this display does every second before using useEffect as a better approach.
+      setMyVal(myVal - 1);
     }, 1000);
-  };
+  }, [myVal]);
 
   return (
     <div>
       <input onInput={(e) => setInputVal(e.target.value)} />
-      <button onClick={decrement}>Click me</button>
-      {inputVal}
+      <button onClick={() => setMyVal(inputVal)}>Click me</button>
+      {myVal}
     </div>
   );
 };

@@ -100,6 +100,7 @@ import React, { useEffect, useState } from "react";
 // of the fetched information bold and the body underneat it.
 
 // there are two problems here after this lecture: duplicate infos are printed when the browser loads (can be corrected by commenting out React.StrictMode in index.js file), and the browser loading all the data when no input is added. The second problem is solved in the next class by using useEffect as a cleanup function.
+// one of the uses of useEffect is to run side effect.
 
 // USE EFFECT AS A CLEAN UP FUNCTION ==============
 
@@ -139,12 +140,16 @@ import React, { useEffect, useState } from "react";
 
 const App = () => {
   let [inputVal, setInputVal] = useState("");
-  let [myVal, setMyVal] = useState(0);
+  let [myVal, setMyVal] = useState("");
 
   useEffect(() => {
-    let myInterval = setInterval(() => {
-      setMyVal(myVal - 1);
-    }, 1000);
+    let myInterval;
+    if (myVal > 0) {
+      myInterval = setInterval(() => {
+        // try to use setTimeout instead setInterval to see if it gives same result
+        setMyVal(myVal - 1);
+      }, 1000);
+    }
 
     return () => {
       clearInterval(myInterval);
